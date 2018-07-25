@@ -1,5 +1,6 @@
 <h1>Twitch-api</h1>
-![image] (https://github.com/AngeloETH/Twitch-api-front-end/blob/master/twitch.png)
+
+![image](https://github.com/AngeloETH/Twitch-api-front-end/blob/master/twitch.png)
 
 Show 20 league of legends games im my front-end page.
 
