@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <title>LoL Top 20</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <style>
+            body{
+               margin: 0px;
+            }
+            .bg-img{
+			    width:100%;
+			    position: fixed;
+			    top: -20px;
+			    z-index: -1;
+		    }
+            .container {
+                max-width: 1200px;
+			    margin: 48px auto;
+
+            }    
+            
+            .link{
+                display: inline-block;
+			    background-color: #00000059;
+			    width: 320px;
+			    margin: 20px 4% 20px 20px;
+
+            }
+            .stream {
+                width: 100%;
+            }
+            .stream_title{
+			    padding: 8px 0;
+		    }
+            .logo{
+                display: inline-block;
+                margin-top: 0px;;
+                width: 50px;
+			    height: 50px;
+			    margin-left: 20px;
+            }
+            .logo > img{
+			    width: 100%;
+			    border-radius:50%;
+			    vertical-align: -45%;
+		    }
+            .title{
+			    display: inline-block;
+			    color: #c5c5c5;
+			    font-family: sans-serif;
+			    padding-left: 20px;
+		    }
+		    .status{
+			    width: 200px;
+			    overflow: hidden;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+		    }
+            .link:hover{
+                cursor: pointer;
+			    opacity: 0.8;
+			    box-shadow: 0px 1px 1px 0 black;
+			    transition: opacity 0.2s ease-in-out;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded',() =>{
+            var client_id = 'wznkeywgniy15h924izu4uhwuz2s2u';
+            var api_url = 'https://api.twitch.tv/kraken/streams/';
+            var game = 'League%20of%20Legends';
+            var url = api_url +'?game='+game +'&client_id=' + client_id;
+                
+            var request = new XMLHttpRequest();
+            
+            request.open('GET',url,true);
+
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+  
+                // Success!
+                var data = JSON.parse(request.responseText)
+                console.log(data);
+                var frameNumber = 20;
+                var link = document.querySelector('.link');
+                var stream = document.querySelector('.stream');
+                var logo = document.querySelector('.logo');
+                var status = document.querySelector('.status');
+                var name = document.querySelector('.display_name');
+                
+                var showData = function(n){
+                    stream.innerHTML = '<img src='+data.streams[n].preview.medium+'>';
+                    link.setAttribute('href',data.streams[n].channel.url)
+                    logo.firstElementChild.setAttribute('src',data.streams[n].channel.logo);
+                    status.innerText = data.streams[n].channel.status;
+                    name.innerText = data.streams[n].channel.display_name;
+                }
+                    
+                showData(0);
+                for (var i=1 ; i < frameNumber ; i++){
+                    var copystream =link.cloneNode(true); 
+                    showData(i);
+                    document.querySelector('.container').appendChild(copystream)
+                }
+                
+
+                console.log(link);
+                //console.log(logo);
+                
+                
+                    }
+                    else {
+                        alert('Error!');
+                    }
+                }
+            request.send();
+            })    
+        </script>
+    </head>
+    <body>
+        
+               
+        </div>
+        <div class="bg-img">
+            <img src="https://lolstatic-a.akamaihd.net/lolkit/1.1.6/resources/images/bg-default.jpg" />
+        </div>
+            <div class='container'>
+                
+                    <a class='link'>
+                        <div class='stream' ></div> 
+                        <div class='stream_title'>
+                            <div class='logo'><img/></div>
+                            <div class='title'>
+                                <div class='status'></div>
+                                <div class='display_name'></div>
+                            </div>
+                          </div>
+                        </a>
+                
+                        
+
+                   
+            </div>
+            
+        
+    </body>
+</html>
